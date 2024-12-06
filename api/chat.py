@@ -6,7 +6,6 @@ import torch
 from pydantic import BaseModel
 from typing import Optional
 from sentence_transformers import SentenceTransformer, util
-from asgi_to_wsgi import ASGIMiddleware
 import sys
 import signal
 import os
@@ -250,9 +249,3 @@ def signal_handler(signal, frame):
 
 
 signal.signal(signal.SIGINT, signal_handler)
-
-# Adapt FastAPI to WSGI using asgi_to_wsgi
-wsgi_app = ASGIMiddleware(app)
-
-def handler(environ, start_response):
-    return wsgi_app(environ, start_response)
